@@ -31,7 +31,7 @@ jobs:
       - name: Compile
         run: |
           mkdir build
-          gcc -o build/main src/*.c -Iinclude -I../glfw/include ../glfw/build/src/libglfw3.a -lm -lgdi32
+          gcc -o build/main src/*.c -Iinclude -I../glfw/include ../glfw/build/src/libglfw3.a -lm -lgdi32 -mwindows
           xcopy assets build\assets /ie
         working-directory: hexspin
       
