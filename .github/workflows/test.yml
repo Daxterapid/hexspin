@@ -36,7 +36,9 @@ jobs:
         working-directory: hexspin
       
       - name: Compress binary
-        run: Compress-Archive hexspin/build hexspin/build.zip
+        env:
+          tag: v1.0.0-beta
+        run: Compress-Archive hexspin/build hexspin/${GITHUB_REPOSITORY##*/}-$tag.zip.zip
       
       - name: Add binary to release
         env:
@@ -44,6 +46,6 @@ jobs:
           tag: v1.0.0-beta
         shell: bash
         run: |
-          gh release upload "$tag" "hexspin/build.zip#${GITHUB_REPOSITORY##*/}-$tag.zip" \
+          gh release upload "$tag" "hexspin/${GITHUB_REPOSITORY##*/}-$tag.zip" \
             --repo="$GITHUB_REPOSITORY" \
             --clobber
