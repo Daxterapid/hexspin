@@ -9,10 +9,8 @@ jobs:
         working-directory: glfw
       - run: cmake -S glfw -B glfw/build -G "Visual Studio 17 2022" -D GLFW_BUILD_EXAMPLES=OFF -D GLFW_BUILD_TESTS=OFF -D GLFW_BUILD_DOCS=OFF
       - run: cmake --build glfw/build --parallel
-      - run: ls glfw
-      - run: ls glfw/build
-      - run: tree glfw/build /F
-      - run: tree glfw/build/x64 /F
-      - run: chdir
-      - run: cd glfw
-      - run: chdir
+      - uses: actions/checkout@v3
+        with:
+          path: hexspin
+      - run: ls
+      - run: ls hexspin
