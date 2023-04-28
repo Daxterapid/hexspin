@@ -28,5 +28,5 @@ jobs:
       - name: Compile
         run: |
           mkdir build
-          gcc -o build/main src/*.c -Iinclude -I../glfw/include -L../glfw/build/src/Debug/glfw3.lib -lglfw3 -lm
+          gcc -o build/main src/*.c -Iinclude -I../glfw/include ../glfw/build/src/Debug/glfw3.lib -lm
         working-directory: hexspin
