@@ -1,11 +1,12 @@
 on: push
 
 env:
-  REPO: ${{ GITHUB_REPOSITORY }}
-  REPO_NAME: "${REPO##*/}"
+  REPO_NAME: "${GITHUB_REPOSITORY##*/}"
+  REPO_NAME2: "${$GITHUB_REPOSITORY##*/}"
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - run: echo "$REPO_NAME"
+      - run: echo "$REPO_NAME2"
