@@ -5,3 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: find .
+      - run: ls -a
+      - run: ls -aR
+      - run: pwd
+      - run: echo HELLO
