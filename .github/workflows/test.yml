@@ -38,7 +38,7 @@ jobs:
       - name: Compress binary
         env:
           tag: v1.0.0-beta
-        run: Compress-Archive hexspin/build hexspin/${GITHUB_REPOSITORY##*/}-$tag.zip.zip
+        run: Compress-Archive hexspin/build hexspin/${GITHUB_REPOSITORY##*/}-$tag.zip
       
       - name: Add binary to release
         env:
