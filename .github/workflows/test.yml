@@ -39,7 +39,7 @@ jobs:
         env:
           tag: v1.0.0-beta
         run: |
-          Compress-Archive hexspin/build hexspin/${GITHUB_REPOSITORY##*/}-$tag.zip
+          Compress-Archive hexspin/build "hexspin/hexspin-$tag.zip"
           tree . /F
       
       - name: Add binary to release
@@ -48,6 +48,6 @@ jobs:
           tag: v1.0.0-beta
         shell: bash
         run: |
-          gh release upload "$tag" "hexspin/${GITHUB_REPOSITORY##*/}-$tag.zip" \
+          gh release upload "$tag" "hexspin/hexspin-$tag.zip" \
             --repo="$GITHUB_REPOSITORY" \
             --clobber
