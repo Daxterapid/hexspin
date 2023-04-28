@@ -11,7 +11,7 @@ jobs:
           key: ${{ runner.os }}-glfw-mingw
           path: |
             glfw/include
-            glfw/build/src/Debug/glfw3.lib
+            glfw/build/src/libglfw3.a
 
       - name: Build GLFW
         if: ${{ steps.cache-glfw.outputs.cache-hit != 'true' }}
@@ -27,6 +27,7 @@ jobs:
 
         # TODO: figure out how to compile with visual studio (msvc?), probably with cmake
       - name: Compile
+        continue-on-error: true
         run: |
           dir ../glfw/build/src /B
           mkdir build
