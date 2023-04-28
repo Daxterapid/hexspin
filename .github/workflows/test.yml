@@ -4,8 +4,9 @@ jobs:
   test:
     runs-on: windows-latest
     steps:
-      - run: ls -a
+      - run: dir
       - run: git clone https://github.com/glfw/glfw.git
+      - run: cd glfw && dir && cd ..
       - run: cd glfw && glfw checkout latest && cd ..
       - run: cmake -S glfw -B glfw/build -G "Visual Studio 17 2022" -D GLFW_BUILD_EXAMPLES=OFF -D GLFW_BUILD_TESTS=OFF -D GLFW_BUILD_DOCS=OFF
       - run: cmake --build glfw/build --parallel
@@ -13,3 +14,6 @@ jobs:
       - run: ls glfw/build
       - run: tree glfw/build
       - run: tree glfw/build/x64
+      - run: cd
+      - run: cd glfw
+      - run: cd
