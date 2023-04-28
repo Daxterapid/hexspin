@@ -1,7 +1,8 @@
 on: push
 
 env:
-  REPO_NAME: "${GITHUB_REPOSITORY##*/}"
+  REPO: ${{ GITHUB_REPOSITORY }}
+  REPO_NAME: "${REPO##*/}"
 
 jobs:
   test:
