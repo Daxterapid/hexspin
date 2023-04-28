@@ -1,12 +1,10 @@
 on: push
 
+env:
+  REPO_NAME: "${GITHUB_REPOSITORY##*/}"
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: mkdir ztupid
-      - uses: actions/checkout@v3
-        with:
-          path: ztupid
-      - run: ls
-      - run: ls ztupid
+      - run: echo "$REPO_NAME"
