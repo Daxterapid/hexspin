@@ -26,6 +26,6 @@ jobs:
           path: hexspin
 
       - name: Compile
-      - run: |
+        run: |
           gcc -o build/main src/*.c -Iinclude -I../glfw/include -L../glfw/build/src/Debug/glfw3.lib -lglfw -lm
         working-directory: hexspin
