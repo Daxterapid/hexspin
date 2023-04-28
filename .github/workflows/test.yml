@@ -4,8 +4,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: find .
-      - run: ls -a
-      - run: ls -aR
-      - run: pwd
-      - run: echo HELLO
+      - run: ls ..
+      - run: ls ../..
+      - run: ls ../../..
