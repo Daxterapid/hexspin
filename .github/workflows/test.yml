@@ -28,12 +28,11 @@ jobs:
         with:
           path: hexspin
 
-        # TODO: figure out how to compile with visual studio (msvc?), probably with cmake
       - name: Compile
         run: |
           mkdir build
           gcc -o build/main src/*.c -Iinclude -I../glfw/include ../glfw/build/src/libglfw3.a -lm -lgdi32
-          tree . /F
+          xcopy assets "build/assets" /ie
         working-directory: hexspin
       
       - name: Compress binary
