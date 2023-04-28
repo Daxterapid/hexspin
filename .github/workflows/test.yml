@@ -28,6 +28,7 @@ jobs:
         # TODO: figure out how to compile with visual studio (msvc?), probably with cmake
       - name: Compile
         run: |
+          dir glfw/build/src /B
           mkdir build
-          gcc -o build/main src/*.c -Iinclude -I../glfw/include -L../glfw/build/src -lglfw3 -lm -lgdi32
+          gcc -o build/main src/*.c -Iinclude -I../glfw/include ../glfw/build/src/libglfw3.a -lm -lgdi32
         working-directory: hexspin
