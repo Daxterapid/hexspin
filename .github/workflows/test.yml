@@ -4,6 +4,7 @@ jobs:
   windows-mingw:
     name: Windows (MinGW)
     runs-on: windows-latest
+    permissions: write-all
     
     steps:
       - name: Restore GLFW files from cache
@@ -44,6 +45,6 @@ jobs:
           tag: v1.0.0-beta
         shell: bash
         run: |
-          gh release upload "$tag" "hexspin/build.zip#${GITHUB_REPOSITORY##*/}-v1.0.0-beta.zip" \
+          gh release upload "$tag" "hexspin/build.zip#${GITHUB_REPOSITORY##*/}-$tag.zip" \
             --repo="$GITHUB_REPOSITORY" \
             --clobber
