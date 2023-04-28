@@ -1,8 +1,8 @@
 on: push
 
 env:
-  REPO_NAME: "${GITHUB_REPOSITORY##*/}"
-  REPO_NAME2: "${$GITHUB_REPOSITORY##*/}"
+  REPO_NAME: ${GITHUB_REPOSITORY##*/}
+  REPO_NAME2: ${$GITHUB_REPOSITORY##*/}
 
 jobs:
   test:
