@@ -4,6 +4,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: ls ..
-      - run: ls ../..
-      - run: ls ../../..
+      - run: mkdir ztupid
+      - name: dum
+        working-directory: ./ztupid
+        run: echo "$GITHUB_WORKSPACE"
