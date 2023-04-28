@@ -10,3 +10,4 @@ jobs:
     steps:
       - run: echo "$REPO_NAME"
       - run: echo "$REPO_NAME2"
+      - run: echo ${GITHUB_REPOSITORY##*/}
