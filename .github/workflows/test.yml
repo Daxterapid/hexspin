@@ -4,4 +4,6 @@ jobs:
   test:
     runs-on: windows-latest
     steps:
+      - run: git clone https://github.com/glfw/glfw.git
+      - run: cmake -S glfw -B glfw/build -D USE_MSVC_RUNTIME_LIBRARY_DLL=OFF -D CMAKE_TOOLCHAIN_FILE=CMake/x86_64-w64-mingw32.cmake
       - run: mingw32-make
