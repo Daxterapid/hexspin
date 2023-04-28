@@ -25,8 +25,9 @@ jobs:
         with:
           path: hexspin
 
+        # TODO: figure out how to compile with visual studio (msvc?), probably with cmake
       - name: Compile
         run: |
           mkdir build
-          gcc -o build/main src/*.c -Iinclude -I../glfw/include ../glfw/build/src/Debug/glfw3.lib -lm
+          gcc -o build/main src/*.c -Iinclude -I../glfw/include ../glfw/build/src/Debug/glfw3.lib -lm -lgdi32
         working-directory: hexspin
