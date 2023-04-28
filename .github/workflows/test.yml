@@ -13,5 +13,5 @@ jobs:
         with:
           path: hexspin
       - run: |
-          gcc
+          gcc -o build/main src/*.c -Iinclude -L../glfw/build/src/Debug/glfw3.lib -lglfw -lm
         working-directory: hexspin
