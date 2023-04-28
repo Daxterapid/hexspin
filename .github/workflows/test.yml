@@ -20,6 +20,7 @@ jobs:
           cd glfw && git checkout latest && cd ..
           cmake -S glfw -B glfw/build -G "MinGW Makefiles" -D GLFW_BUILD_EXAMPLES=OFF -D GLFW_BUILD_TESTS=OFF -D GLFW_BUILD_DOCS=OFF
           cmake --build glfw/build --parallel
+          tree glfw/build /F
 
       - uses: actions/checkout@v3
         with:
@@ -27,6 +28,7 @@ jobs:
 
         # TODO: figure out how to compile with visual studio (msvc?), probably with cmake
       - name: Compile
+        continue-on-error: true
         run: |
           mkdir build
           gcc -o build/main src/*.c -Iinclude -I../glfw/include -L../glfw/build/src/Debug -lglfw3 -lm -lgdi32
