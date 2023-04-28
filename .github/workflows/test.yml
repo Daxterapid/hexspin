@@ -32,7 +32,7 @@ jobs:
         run: |
           mkdir build
           gcc -o build/main src/*.c -Iinclude -I../glfw/include ../glfw/build/src/libglfw3.a -lm -lgdi32
-          xcopy assets "build/assets" /ie
+          xcopy assets build\assets /ie
         working-directory: hexspin
       
       - name: Compress binary
