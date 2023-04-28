@@ -39,7 +39,7 @@ jobs:
         env:
           tag: v1.0.0-beta
         run: |
-          Compress-Archive hexspin/build "hexspin/hexspin-$tag.zip"
+          Compress-Archive hexspin/build "hexspin/hexspin-$env:tag.zip"
           tree . /F
       
       - name: Add binary to release
