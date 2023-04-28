@@ -1,8 +1,10 @@
 on: push
 
 jobs:
-  test:
+  windows-mingw:
+    name: Windows (MinGW)
     runs-on: windows-latest
+    
     steps:
       - name: Restore GLFW files from cache
         id: cache-glfw
@@ -30,4 +32,15 @@ jobs:
         run: |
           mkdir build
           gcc -o build/main src/*.c -Iinclude -I../glfw/include ../glfw/build/src/libglfw3.a -lm -lgdi32
+          tree . /F
         working-directory: hexspin
+      
+      - name: Compress binary
+        run: Compress-Archive hexspin/build hexspin/build.zip
+      
+      - name: Add binary to release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tag: v1.0.0-beta
+        run: |
+          gh release upload "$tag" "hexspin/build.zip#${GITHUB_REPOSITORY##*/}-v1.0.0-beta.zip" --clobber
