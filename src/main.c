@@ -6,6 +6,7 @@
 // TODO
 // - animations
 // - mouse selection
+// - stop using asserts
 // - safe memory allocation wrappers
 // - pulsating highlight
 // - opposite up/down movement?

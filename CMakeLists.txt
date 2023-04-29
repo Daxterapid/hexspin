@@ -1,3 +1,8 @@
+# TODO: get linux builds working (test.yml)
+# TODO: improve workflow files
+# TODO: hide console window (cl.exe says -mwindows is an unknown option)
+# TODO: remove other warning when using cmake build (MSVCRTD)
+
 cmake_minimum_required(VERSION 3.20)
 
 project(hexspin C)
@@ -15,7 +20,8 @@ file(GLOB_RECURSE data assets/*)
 
 add_executable(hexspin ${sources} ${data})
 
-target_compile_options(hexspin PUBLIC)
+#target_compile_options(hexspin PUBLIC -mwindows)
+#set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} -mwindows)
 
 target_include_directories(hexspin PUBLIC include)
 target_include_directories(hexspin PUBLIC ../glfw/include)
@@ -31,7 +37,5 @@ install(DIRECTORY assets DESTINATION bin)
 
 set(CPACK_OUTPUT_FILE_PREFIX "")
 set(CPACK_GENERATOR "ZIP")
-
-#set(CPACK_MONOLITHIC_INSTALL 1)
 
 include(CPack)
