@@ -30,9 +30,6 @@ jobs:
 
       - name: Compile
         run: |
-#          mkdir build
-#          gcc -o build/hexspin src/*.c -Iinclude -I../glfw/include ../glfw/build/src/libglfw3.a -lm -lgdi32 -mwindows
-#          xcopy assets build\assets /ie
           cmake -S . -B build -G "Visual Studio 17 2022"
           cmake --build build --config Release
           cd build
