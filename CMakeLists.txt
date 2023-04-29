@@ -23,6 +23,11 @@ add_executable(hexspin ${sources} ${data})
 #target_compile_options(hexspin PUBLIC -mwindows)
 #set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} -mwindows)
 
+if(MSVC)
+	set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+	target_link_options(hexspin PRIVATE /subsystem:windows /entry:mainCRTStartup)
+endif()
+
 target_include_directories(hexspin PUBLIC include)
 target_include_directories(hexspin PUBLIC ../glfw/include)
 

@@ -2,7 +2,7 @@ on: push
 
 jobs:
   windows-mingw:
-    name: Windows (MinGW)
+    name: Windows (MSVC)
     runs-on: windows-latest
     permissions: write-all
 
