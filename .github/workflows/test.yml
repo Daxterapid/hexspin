@@ -11,17 +11,17 @@ jobs:
         id: cache-glfw
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-glfw-mingw
+          key: ${{ runner.os }}-glfw-vs2022
           path: |
             glfw/include
-            glfw/build/src/libglfw3.a
+            glfw/build/src/glfw3.lib
 
       - name: Build GLFW
         if: ${{ steps.cache-glfw.outputs.cache-hit != 'true' }}
         run: |
           git clone https://github.com/glfw/glfw.git
           cd glfw && git checkout latest && cd ..
-          cmake -S glfw -B glfw/build -G "MinGW Makefiles" -D GLFW_BUILD_EXAMPLES=OFF -D GLFW_BUILD_TESTS=OFF -D GLFW_BUILD_DOCS=OFF
+          cmake -S glfw -B glfw/build -G "Visual Studio 17 2022" -D GLFW_BUILD_EXAMPLES=OFF -D GLFW_BUILD_TESTS=OFF -D GLFW_BUILD_DOCS=OFF
           cmake --build glfw/build --parallel
 
       - uses: actions/checkout@v3
@@ -30,20 +30,14 @@ jobs:
 
       - name: Compile
         run: |
-        #  mkdir build
-        #  gcc -o build/hexspin src/*.c -Iinclude -I../glfw/include ../glfw/build/src/libglfw3.a -lm -lgdi32 -mwindows
-        #  xcopy assets build\assets /ie
+#          mkdir build
+#          gcc -o build/hexspin src/*.c -Iinclude -I../glfw/include ../glfw/build/src/libglfw3.a -lm -lgdi32 -mwindows
+#          xcopy assets build\assets /ie
           cmake -S . -B build -G "Visual Studio 17 2022"
           cmake --build build --config Release
           cd build
           cpack --config CPackConfig.cmake
         working-directory: hexspin
-
-      - name: Compress binary
-        env:
-          tag: v1.0.0-beta
-        run: |
-          Compress-Archive hexspin/build "hexspin/hexspin-$env:tag.zip"
 
       - name: Add binary to release
         env:
@@ -51,6 +45,6 @@ jobs:
           tag: v1.0.0-beta
         shell: bash
         run: |
-          gh release upload "$tag" "hexspin/hexspin-$tag.zip" \
+          gh release upload "$tag" "hexspin/build/hexspin-0.1.1-win64.zip" \
             --repo="$GITHUB_REPOSITORY" \
             --clobber
