@@ -5,4 +5,4 @@ out vec4 fColor;
 
 void main() {
 	fColor = vec4(oColor.rgb, 1.0);
-};
+}

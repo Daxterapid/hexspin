@@ -31,14 +31,14 @@ struct level_create_data {
 
 void level_create(struct level *level, struct level_create_data *data)
 {
-	
+
 }*/
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
 	struct hex_grid *grid = glfwGetWindowUserPointer(window);
 	if (grid == NULL) return;
-	
+
 	if (action == GLFW_PRESS || action == GLFW_REPEAT) {
 		switch (key) {
 		case GLFW_KEY_A:
@@ -55,15 +55,15 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 			break;
 		}
 	}
-	
+
 	if (key == GLFW_KEY_SEMICOLON && action == GLFW_PRESS) {
 		hex_grid_rotate_ccw(grid);
 	}
-	
+
 	if (key == GLFW_KEY_APOSTROPHE && action == GLFW_PRESS) {
 		hex_grid_rotate_cw(grid);
 	}
-	
+
 	if (key == GLFW_KEY_I && action == GLFW_PRESS) {
 		hex_grid_scramble(grid);
 	}
@@ -81,51 +81,58 @@ void hexagon_bitmap(bool *bitmap, uint32_t size)
 
 int main(void)
 {
-	assert(glfwInit());
-	
+	if (!glfwInit()) {
+		exit(EXIT_FAILURE);
+	}
+
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	
+
 	GLFWwindow *window = glfwCreateWindow(750, 650, "hexspin", NULL, NULL);
-	assert(window);
-	
+	if (!window) {
+		glfwTerminate();
+		exit(EXIT_FAILURE);
+	}
+
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
-	
+
 	glfwSetKeyCallback(window, key_callback);
-	
-	assert(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress));
-	
+
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+		exit(EXIT_FAILURE);
+	}
+
 #define SIZE 5
 	bool bitmap[SIZE * SIZE] = { false };
 	hexagon_bitmap(bitmap, SIZE);
 	struct hex_grid *grid = hex_grid_create(SIZE, SIZE, bitmap, true);
 	struct hex_grid_renderer *renderer = hex_grid_renderer_create(grid);
-	
+
 	glfwSetWindowUserPointer(window, grid);
-	
+
 	srand(time(NULL));
 	hex_grid_scramble(grid);
-	
+
 	hex_grid_select(grid, SIZE / 2, SIZE / 2);
-	
+
 	while (!glfwWindowShouldClose(window)) {
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		
+
 		//hex_grid_renderer_update(grid, 0);
 		hex_grid_renderer_render(renderer, 750.0f, 650.0f, 40.0f);
-		
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
-	
+
 	hex_grid_destroy(grid);
 	hex_grid_renderer_destroy(renderer);
-	
+
 	glfwDestroyWindow(window);
 	glfwTerminate();
-	
+
 	return 0;
 }
