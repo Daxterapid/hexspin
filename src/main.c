@@ -6,6 +6,7 @@
 // TODO
 // - animations
 // - mouse selection
+// - stop using asserts
 // - safe memory allocation wrappers
 // - pulsating highlight
 // - opposite up/down movement?
@@ -104,7 +105,7 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-#define SIZE 5
+#define SIZE 7
 	bool bitmap[SIZE * SIZE] = { false };
 	hexagon_bitmap(bitmap, SIZE);
 	struct hex_grid *grid = hex_grid_create(SIZE, SIZE, bitmap, true);
