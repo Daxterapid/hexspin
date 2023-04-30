@@ -22,9 +22,10 @@ target_include_directories(hexspin PUBLIC ../glfw/include)
 
 file(COPY ${data} DESTINATION assets)
 
+#find_library(GLFW_LIBRARY glfw REQUIRED)
 find_library(GLFW_LIBRARY glfw3 PATHS ../glfw/build PATH_SUFFIXES src src/Debug REQUIRED)
 
-target_link_libraries(hexspin PUBLIC ${GLFW_LIBRARY})
+target_link_libraries(hexspin ${GLFW_LIBRARY} m)
 
 install(TARGETS hexspin DESTINATION bin)
 install(DIRECTORY assets DESTINATION bin)
