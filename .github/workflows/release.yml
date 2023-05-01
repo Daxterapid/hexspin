@@ -17,7 +17,7 @@ jobs:
       - run: ls
 
       - name: test composite action
-        uses: ./.github/actions/test-action
+        uses: ./.github/actions/test-action@v1
 
       - name: Add assets to release
         env:
