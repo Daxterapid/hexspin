@@ -12,6 +12,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          path: hexspin
 
       - name: Build
         uses: ./.github/actions/build-windows-msvc

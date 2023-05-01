@@ -21,16 +21,12 @@ runs:
         cmake -S glfw -B glfw/build -G "Visual Studio 17 2022" \
           -D GLFW_BUILD_EXAMPLES=OFF -D GLFW_BUILD_TESTS=OFF -D GLFW_BUILD_DOCS=OFF
         cmake --build glfw/build --parallel
-      shell: pwsh
-    
-    - uses: actions/checkout@v3
-      with:
-        path: hexspin
+      shell: bash
     
     - name: Build
       run: |
         cmake -S . -B build -G "Visual Studio 17 2022"
         cmake --build build --config Release
         cpack -B build --config build/CPackConfig.cmake
-      shell: pwsh
+      shell: bash
       working-directory: hexspin
