@@ -16,7 +16,7 @@ runs:
     - name: Build GLFW
       if: ${{ steps.cache-glfw.outputs.cache-hit != 'true' }}
       run: |
-        sudo apt install libwayland-dev libxkbcommon-dev wayland-protocols extra-cmake-modules
+        sudo apt install xorg-dev libwayland-dev libxkbcommon-dev wayland-protocols extra-cmake-modules
         git clone https://github.com/glfw/glfw.git
         cd glfw && git checkout latest && cd ..
         cmake -S glfw -B glfw/build \
