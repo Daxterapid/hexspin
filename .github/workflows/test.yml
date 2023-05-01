@@ -1,47 +1,70 @@
-on: push
+name: Build
 
 jobs:
-  windows-mingw:
-    name: Windows (MSVC)
-    runs-on: windows-latest
-    permissions: write-all
+	windows-msvc:
+		name: Windows (MSVC)
+		runs-on: windows-latest
 
-    steps:
-      - name: Restore GLFW files from cache
-        id: cache-glfw
-        uses: actions/cache@v3
-        with:
-          key: ${{ runner.os }}-glfw-vs2022
-          path: |
-            glfw/include
-            glfw/build/src/Debug/glfw3.lib
+		steps:
+			- name: Restore GLFW files from cache
+				id: cache-glfw
+				uses: actions/cache@v3
+				with:
+					key: ${{ runner.os }}-glfw-msvc
+					path: |
+						glfw/include
+						glfw/build/src/Debug/glfw3.lib
 
-      - name: Build GLFW
-        if: ${{ steps.cache-glfw.outputs.cache-hit != 'true' }}
-        run: |
-          git clone https://github.com/glfw/glfw.git
-          cd glfw && git checkout latest && cd ..
-          cmake -S glfw -B glfw/build -G "Visual Studio 17 2022" -D GLFW_BUILD_EXAMPLES=OFF -D GLFW_BUILD_TESTS=OFF -D GLFW_BUILD_DOCS=OFF
-          cmake --build glfw/build --parallel
+			- name: Build GLFW
+				if: ${{ steps.cache-glfw.outputs.cache-hit != 'true' }}
+				run: |
+					git clone https://github.com/glfw/glfw.git
+					cd glfw && git checkout latest && cd ..
+					cmake -S glfw -B glfw/build -G "Visual Studio 17 2022" \
+						-D GLFW_BUILD_EXAMPLES=OFF -D GLFW_BUILD_TESTS=OFF -D GLFW_BUILD_DOCS=OFF
+					cmake --build glfw/build --parallel
 
-      - uses: actions/checkout@v3
-        with:
-          path: hexspin
+			- uses: actions/checkout@v3
+				with:
+					path: hexspin
 
-      - name: Compile
-        run: |
-          cmake -S . -B build -G "Visual Studio 17 2022"
-          cmake --build build --config Release
-          cd build
-          cpack --config CPackConfig.cmake
-        working-directory: hexspin
+			- name: Build
+				run: |
+					cmake -S . -B build -G "Visual Studio 17 2022"
+					cmake --build build --config Release
+					cpack -B build --config build/CPackConfig.cmake
+				working-directory: hexspin
 
-      - name: Add binary to release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          tag: v1.0.0-beta
-        shell: bash
-        run: |
-          gh release upload "$tag" "hexspin/build/hexspin-0.1.1-win64.zip" \
-            --repo="$GITHUB_REPOSITORY" \
-            --clobber
+	linux:
+		name: Linux
+		runs-on: ubuntu-latest
+		
+		steps:
+			- name: Restore GLFW files from cache
+				id: cache-glfw
+				uses: actions/cache@v3
+				with:
+					key: ${{ runner.os }}-glfw-linux
+					path: |
+						glfw/include
+						glfw/build/src/libglfw.a
+			
+			- name: Build GLFW
+				if: ${{ steps.cache-glfw.outputs.cache-hit != 'true' }}
+				run: |
+					git clone https://github.com/glfw/glfw.git
+					cd glfw && git checkout latest && cd ..
+					cmake -S glfw -B glfw/build \
+						-D GLFW_BUILD_EXAMPLES=OFF -D GLFW_BUILD_TESTS=OFF -D GLFW_BUILD_DOCS=OFF
+					cmake --build glfw/build --parallel
+			
+			- uses: actions/checkout@v3
+				with:
+					path: hexspin
+
+			- name: Build
+				run: |
+					cmake -S . -B build
+					cmake --build build --config Release
+					cpack -B build --config build/CPackConfig.cmake
+				working-directory: hexspin
