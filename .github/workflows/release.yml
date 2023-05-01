@@ -16,7 +16,7 @@ jobs:
           path: hexspin
 
       - name: Build
-        uses: ./.github/actions/build-windows-msvc
+        uses: hexspin/.github/actions/build-windows-msvc
       
       - run: |
           dir
