@@ -3,7 +3,7 @@ name: Build
 on: push
 
 jobs:
-  windows-msvc:
+  build-windows-msvc:
     name: Windows (MSVC)
     runs-on: windows-latest
 
@@ -37,7 +37,7 @@ jobs:
           cpack -B build --config build/CPackConfig.cmake
         working-directory: hexspin
 
-  linux:
+  build-linux:
     name: Linux
     runs-on: ubuntu-latest
 		

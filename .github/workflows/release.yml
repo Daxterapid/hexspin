@@ -6,29 +6,36 @@ on:
     tags: v*
 
 jobs:
-  release:
-    name: Create release
-    runs-on: ubuntu-latest
-    permissions: write-all
+  build-windows-msvc:
+    name: Windows (MSVC)
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Build
+        uses: ./.github/actions/test-action
       
       - run: |
-          ls -A
-          ls -A .github
-          ls -A .github/actions
-          ls -A .github/actions/test-action
+          dir
+          dir build
 
-      - name: test composite action
-        uses: ./.github/actions/test-action
+  release:
+    name: Create release
+    permissions: write-all
+    
+    steps:
+#      - name: Download assets
+#        uses: actions/download-artifacts@v3
+#        with:
+#          name: ??????????????????????????????????????????????????????????????
 
       - name: Add assets to release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REF: ${{ github.event.push.ref }}
         run: |
-          ls
+          echo h
 #					tag = ${REF##*/}
 #					gh release create "$tag" "hexspin/build/hexspin-${tag#v}-win64.zip" \
 #						--repo="$GITHUB_REPOSITORY" \
