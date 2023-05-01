@@ -23,7 +23,10 @@ file(COPY ${data} DESTINATION assets)
 
 find_library(GLFW_LIBRARY NAMES glfw3 glfw PATHS ../glfw/build PATH_SUFFIXES src src/Debug REQUIRED)
 
-target_link_libraries(hexspin ${GLFW_LIBRARY} m)
+if(LINUX)
+  target_link_libraries(hexspin m)
+endif()
+target_link_libraries(hexspin ${GLFW_LIBRARY})
 
 install(TARGETS hexspin DESTINATION bin)
 install(DIRECTORY assets DESTINATION bin)
