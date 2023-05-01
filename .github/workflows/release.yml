@@ -21,6 +21,8 @@ jobs:
       - run: |
           dir
           dir build
+        working-directory: hexspin
+        continue-on-error: true
 
   release:
     name: Create release
