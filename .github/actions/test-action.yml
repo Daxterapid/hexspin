@@ -1,9 +1,9 @@
 name: Test action
 
 runs:
-	using: composite
-	steps:
-		- run: mkdir awesome_test
-			shell: bash
-		- run: ls
-			shell: bash
+  using: composite
+  steps:
+    - run: mkdir awesome_test
+      shell: bash
+    - run: ls
+      shell: bash

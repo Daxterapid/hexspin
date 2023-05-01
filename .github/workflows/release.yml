@@ -2,27 +2,27 @@ name: Create release
 
 on:
   push:
-		branches: main
-		tags: v*
+    branches: main
+    tags: v*
 
 jobs:
-	release:
-		name: Create release
-		runs-on: ubuntu-latest
-		permissions: write-all
-		
-		steps:
-			- run: ls
+  release:
+    name: Create release
+    runs-on: ubuntu-latest
+    permissions: write-all
 
-			- name: test composite action
-				use: test-action@v1
+    steps:
+      - run: ls
 
-			- name: Add assets to release
-				env:
-					GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-					REF: ${{ github.event.push.ref }}
-				run: |
-					ls
+      - name: test composite action
+        use: test-action@v1
+
+      - name: Add assets to release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REF: ${{ github.event.push.ref }}
+        run: |
+          ls
 #					tag = ${REF##*/}
 #					gh release create "$tag" "hexspin/build/hexspin-${tag#v}-win64.zip" \
 #						--repo="$GITHUB_REPOSITORY" \
