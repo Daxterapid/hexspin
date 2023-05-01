@@ -14,7 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - run: ls
+      - run: |
+          ls -A
+          ls -A .github
+          ls -A .github/actions
+          ls -A .github/actions/test-action
 
       - name: test composite action
         uses: ./.github/actions/test-action
