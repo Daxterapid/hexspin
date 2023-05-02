@@ -85,6 +85,10 @@ int main(void)
 	if (!glfwInit()) {
 		exit(EXIT_FAILURE);
 	}
+	
+	int major, minor, rev;
+	glfwGetVersion(&major, &minor, &rev);
+	printf("%d.%d.%d\n", major, minor, rev);
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -105,7 +109,7 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-#define SIZE 7
+#define SIZE 5
 	bool bitmap[SIZE * SIZE] = { false };
 	hexagon_bitmap(bitmap, SIZE);
 	struct hex_grid *grid = hex_grid_create(SIZE, SIZE, bitmap, true);
