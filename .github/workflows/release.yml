@@ -13,16 +13,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          path: hexspin
+          submodules: recursive
 
       - name: Build
-        uses: ./hexspin/.github/actions/build-windows-msvc
+        uses: .github/actions/build-windows-msvc
       
       - name: Upload as artifact
         uses: actions/upload-artifact@v3
         with:
           name: windows-build
-          path: hexspin/build/hexspin-0.1.1-win64.zip # AAAAAAAAAAAAAAAAAAAAAAAAAAAA VERSION
+          path: build/hexspin-0.1.1-win64.zip # AAAAAAAAAAAAAAAAAAAAAAAAAAAA VERSION
           retention-days: 3
   
   build-linux:
@@ -32,16 +32,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          path: hexspin
+          submodules: recursive
 
       - name: Build
-        uses: ./hexspin/.github/actions/build-linux
+        uses: .github/actions/build-linux
 
       - name: Upload as artifact
         uses: actions/upload-artifact@v3
         with:
           name: linux-build
-          path: hexspin/build/hexspin-0.1.1-Linux.zip # AAAA YEP SAME THING
+          path: build/hexspin-0.1.1-Linux.zip # AAAA YEP SAME THING
           retention-days: 3
 
   release:

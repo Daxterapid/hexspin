@@ -4,29 +4,9 @@ runs:
   using: composite
   
   steps:
-    - name: Restore GLFW files from cache
-      id: cache-glfw
-      uses: actions/cache@v3
-      with:
-        key: ${{ runner.os }}-glfw-msvc
-        path: |
-          glfw/include
-          glfw/build/src/Debug/glfw3.lib
-
-    - name: Build GLFW
-      if: ${{ steps.cache-glfw.outputs.cache-hit != 'true' }}
-      run: |
-        git clone https://github.com/glfw/glfw.git
-        cd glfw && git checkout latest && cd ..
-        cmake -S glfw -B glfw/build -G "Visual Studio 17 2022" \
-          -D GLFW_BUILD_EXAMPLES=OFF -D GLFW_BUILD_TESTS=OFF -D GLFW_BUILD_DOCS=OFF
-        cmake --build glfw/build --parallel
-      shell: bash
-    
     - name: Build
       run: |
         cmake -S . -B build -G "Visual Studio 17 2022"
         cmake --build build --config Release
         cpack -B build --config build/CPackConfig.cmake
       shell: bash
-      working-directory: hexspin

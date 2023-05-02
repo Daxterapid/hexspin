@@ -4,30 +4,9 @@ runs:
   using: composite
 
   steps:
-    - name: Restore GLFW files from cache
-      id: cache-glfw
-      uses: actions/cache@v3
-      with:
-        key: ${{ runner.os }}-glfw-linux
-        path: |
-          glfw/include
-          glfw/build/src/libglfw.a
-
-    - name: Build GLFW
-      if: ${{ steps.cache-glfw.outputs.cache-hit != 'true' }}
-      run: |
-        sudo apt install xorg-dev libwayland-dev libxkbcommon-dev wayland-protocols extra-cmake-modules
-        git clone https://github.com/glfw/glfw.git
-        cd glfw && git checkout latest && cd ..
-        cmake -S glfw -B glfw/build \
-          -D GLFW_BUILD_EXAMPLES=OFF -D GLFW_BUILD_TESTS=OFF -D GLFW_BUILD_DOCS=OFF
-        cmake --build glfw/build --parallel
-      shell: bash
-
     - name: Build
       run: |
         cmake -S . -B build
         cmake --build build --config Release
         cpack -B build --config build/CPackConfig.cmake
       shell: bash
-      working-directory: hexspin
