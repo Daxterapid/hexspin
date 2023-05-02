@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.20)
 
-project(hexspin C)
+project(hexspin VERSION 0.1.0 LANGUAGES C)
 
 file(GLOB_RECURSE sources src/*.c include/*.h)
 file(GLOB_RECURSE data assets/*)
