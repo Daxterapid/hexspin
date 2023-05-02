@@ -16,7 +16,7 @@ jobs:
           submodules: recursive
 
       - name: Build
-        uses: .github/actions/build-windows-msvc
+        uses: ./.github/actions/build-windows-msvc
       
       - name: Upload as artifact
         uses: actions/upload-artifact@v3
@@ -35,7 +35,7 @@ jobs:
           submodules: recursive
 
       - name: Build
-        uses: .github/actions/build-linux
+        uses: ./.github/actions/build-linux
 
       - name: Upload as artifact
         uses: actions/upload-artifact@v3
