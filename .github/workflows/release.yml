@@ -75,7 +75,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REF: vtest release #${{ github.event.push.ref }}
         run: |
-          tag = ${REF##*/}
+#          tag = ${REF##*/}
           gh release create "$tag" dist/*/*.zip \
             --repo="$GITHUB_REPOSITORY" \
             --title="${GITHUB_REPOSITORY##*/} ${tag#v}" \
