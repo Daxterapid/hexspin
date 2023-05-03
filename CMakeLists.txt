@@ -36,7 +36,7 @@ endif()
 install(TARGETS hexspin DESTINATION bin)
 install(DIRECTORY assets DESTINATION bin)
 
-set(CPACK_OUTPUT_FILE_PREFIX "")
+set(CPACK_OUTPUT_FILE_PREFIX "dist")
 set(CPACK_GENERATOR "ZIP")
 
 include(CPack)
