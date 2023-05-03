@@ -73,7 +73,7 @@ jobs:
       - name: Add assets to release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REF: vtest release #${{ github.event.push.ref }}
+          tag: vtest-release #${{ github.event.push.ref }}
         run: |
           gh release create "$tag" dist/*/*.zip \
             --repo="$GITHUB_REPOSITORY" \
