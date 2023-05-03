@@ -24,6 +24,7 @@ file(COPY ${data} DESTINATION assets)
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(lib/glfw)
 
@@ -33,8 +34,8 @@ if(LINUX)
   target_link_libraries(hexspin m)
 endif()
 
-install(TARGETS hexspin DESTINATION bin)
-install(DIRECTORY assets DESTINATION bin)
+install(TARGETS hexspin DESTINATION .)
+install(DIRECTORY assets DESTINATION .)
 
 set(CPACK_OUTPUT_FILE_PREFIX "dist")
 set(CPACK_GENERATOR "ZIP")
