@@ -63,6 +63,7 @@ jobs:
     steps:
       - name: Download assets
         uses: actions/download-artifact@v3
+        id: download
         with:
           path: dist
       
@@ -72,11 +73,11 @@ jobs:
       - name: Add assets to release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REF: ${{ github.event.push.ref }}
+          REF: vtest release #${{ github.event.push.ref }}
         run: |
-          echo h
-#					tag = ${REF##*/}
-#					gh release create "$tag" "hexspin/build/hexspin-${tag#v}-win64.zip" \
-#						--repo="$GITHUB_REPOSITORY" \
-#						--title="${GITHUB_REPOSITORY##*/} ${tag#v}" \
-#						--generate-notes
+          tag = ${REF##*/}
+          gh release create "$tag" dist/*/*.zip \
+            --repo="$GITHUB_REPOSITORY" \
+            --title="${GITHUB_REPOSITORY##*/} ${tag#v}" \
+            --generate-notes
+            --draft
