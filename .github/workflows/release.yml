@@ -8,7 +8,7 @@ on:
 jobs:
   thing:
     runs-on: ubuntu-latest
-    
+
     steps:
       - env:
           ref: ${{ github.ref }}
