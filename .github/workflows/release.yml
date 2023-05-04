@@ -2,22 +2,12 @@ name: Create release
 
 on:
   push:
-    branches: main
-    tags:
+    tags: v*.*.*
 
 jobs:
-  thing:
-    runs-on: ubuntu-latest
-
-    steps:
-      - env:
-          ref: ${{ github.ref }}
-        run: echo "${ref}"
-
   build-windows-msvc:
     name: Windows (MSVC)
     runs-on: windows-latest
-    if: startsWith(github.ref, 'refs/tags/v')
 
     steps:
       - uses: actions/checkout@v3
@@ -41,7 +31,6 @@ jobs:
   build-linux:
     name: Linux
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
     
     steps:
       - uses: actions/checkout@v3
@@ -76,9 +65,6 @@ jobs:
         id: download
         with:
           path: dist
-      
-      - run: ls -R
-        working-directory: dist
 
       - name: Add assets to release
         env:
