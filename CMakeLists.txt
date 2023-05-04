@@ -1,4 +1,3 @@
-# TODO: get linux builds working (test.yml)
 # TODO: improve workflow files
 # TODO: remove other warning when using cmake build (MSVCRTD)
 
